@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Property Detail</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container">
+    <h2>Property Detail</h2>
+    <div>
+        <h3 th:text="${property.place}">Property Place</h3>
+        <p>Area: <span th:text="${property.area}">0</span> sq ft</p>
+        <p>Bedrooms: <span th:text="${property.numberOfBedrooms}">0</span></p>
+        <p>Bathrooms: <span th:text="${property.numberOfBathrooms}">0</span></p>
+        <p>Nearby Hospitals: <span th:text="${property.nearbyHospitals}">None</span></p>
+        <p>Nearby Colleges: <span th:text="${property.nearbyColleges}">None</span></p>
+        <button th:onclick="'likeProperty(' + ${property.id} + ')'">Like</button>
+        <span th:text="${property.likes.size()}">0</span> Likes
+        <button th:onclick="'interestedProperty(' + ${property.id} + ')'">I'm Interested</button>
+    </div>
+</div>
+</body>
+</html>

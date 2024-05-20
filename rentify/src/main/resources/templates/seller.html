@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Seller Properties</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <h1>Seller Properties</h1>
+
+    <!-- Form to post property -->
+    <form id="postForm" th:action="@{/api/sellers/post}" method="post">
+        <div class="form-group">
+            <label for="place">Place:</label>
+            <input type="text" class="form-control" id="place" name="place" required>
+        </div>
+        <div class="form-group">
+            <label for="area">Area:</label>
+            <input type="text" class="form-control" id="area" name="area" required>
+        </div>
+        <div class="form-group">
+            <label for="numberOfBedrooms">Number of Bedrooms:</label>
+            <input type="number" class="form-control" id="numberOfBedrooms" name="numberOfBedrooms" required>
+        </div>
+        <div class="form-group">
+            <label for="numberOfBathrooms">Number of Bathrooms:</label>
+            <input type="number" class="form-control" id="numberOfBathrooms" name="numberOfBathrooms" required>
+        </div>
+        <div class="form-group">
+            <label for="hospitalsNearby">Number of Hospitals Nearby:</label>
+            <input type="number" class="form-control" id="hospitalsNearby" name="hospitalsNearby" required>
+        </div>
+        <div class="form-group">
+            <label for="collegesNearby">Number of Colleges Nearby:</label>
+            <input type="number" class="form-control" id="collegesNearby" name="collegesNearby" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+    <!-- Table to display properties -->
+    <table class="table mt-3">
+        <thead>
+        <tr>
+            <th>Place</th>
+            <th>Area</th>
+            <th>Bedrooms</th>
+            <th>Bathrooms</th>
+            <th>Hospitals Nearby</th>
+            <th>Colleges Nearby</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody id="propertyTableBody">
+        <!-- Properties will be displayed here dynamically -->
+        </tbody>
+    </table>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // Load properties on page load
+        loadProperties();
+
+        // Handle form submission
+        $('#postForm').submit(function(event) {
+            event.preventDefault();
+            var formData = $(this).serialize();
+            $.ajax({
+                type: 'POST',
+                url: '/api/sellers/post',
+                data: formData,
+                success: function(response) {
+                    loadProperties();
+                    $('#postForm')[0].reset(); // Reset form
+                },
+                error: function(xhr, status, error) {
+                    console.error(xhr.responseText);
+                }
+            });
+        });
+    });
+
+    // Function to load properties
+    function loadProperties() {
+        $.get('/api/sellers/all', function(properties) {
+            var tableBody = $('#propertyTableBody');
+            tableBody.empty();
+            properties.forEach(function(property) {
+                var row = $('<tr>');
+                row.append($('<td>').text(property.place));
+                row.append($('<td>').text(property.area));
+                row.append($('<td>').text(property.numberOfBedrooms));
+                row.append($('<td>').text(property.numberOfBathrooms));
+                row.append($('<td>').text(property.hospitalsNearby));
+                row.append($('<td>').text(property.collegesNearby));
+                var actions = $('<td>');
+                actions.append($('<button>').text('Update').attr('onclick', 'updateProperty(' + property.id + ')').addClass('btn btn-sm btn-primary mr-1'));
+                actions.append($('<button>').text('Delete').attr('onclick', 'deleteProperty(' + property.id + ')').addClass('btn btn-sm btn-danger'));
+                row.append(actions);
+                tableBody.append(row);
+            });
+        });
+    }
+
+    // Function to delete property
+    function deleteProperty(propertyId) {
+        $.ajax({
+            type: 'DELETE',
+            url: '/api/sellers/delete/' + propertyId,
+            success: function(response) {
+                loadProperties();
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText);
+            }
+        });
+    }
+</script>
+</body>
+</html>

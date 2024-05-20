@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Post Property</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container">
+    <h2>Post a Property</h2>
+    <form th:action="@{/property}" method="post">
+        <div class="form-group">
+            <label for="place">Place:</label>
+            <input type="text" id="place" name="place" required>
+        </div>
+        <div class="form-group">
+            <label for="area">Area (sq ft):</label>
+            <input type="text" id="area" name="area" required>
+        </div>
+        <div class="form-group">
+            <label for="numberOfBedrooms">Number of Bedrooms:</label>
+            <input type="number" id="numberOfBedrooms" name="numberOfBedrooms" required>
+        </div>
+        <div class="form-group">
+            <label for="numberOfBathrooms">Number of Bathrooms:</label>
+            <input type="number" id="numberOfBathrooms" name="numberOfBathrooms" required>
+        </div>
+        <div class="form-group">
+            <label for="nearbyHospitals">Nearby Hospitals:</label>
+            <input type="text" id="nearbyHospitals" name="nearbyHospitals">
+        </div>
+        <div class="form-group">
+            <label for="nearbyColleges">Nearby Colleges:</label>
+            <input type="text" id="nearbyColleges" name="nearbyColleges">
+        </div>
+        <button type="submit">Post Property</button>
+    </form>
+</div>
+</body>
+</html>

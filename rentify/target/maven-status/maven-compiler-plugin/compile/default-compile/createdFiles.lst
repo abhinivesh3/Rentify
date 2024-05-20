@@ -1,0 +1,16 @@
+com\rentify\rentify\dto\RegisterDto.class
+com\rentify\rentify\service\RegisterService.class
+com\rentify\rentify\service\impl\BuyerImplService.class
+com\rentify\rentify\service\impl\RegisterImplService.class
+com\rentify\rentify\service\impl\SellerImplService.class
+com\rentify\rentify\repository\RegisterRepository.class
+com\rentify\rentify\model\Register.class
+com\rentify\rentify\repository\SellerRepository.class
+com\rentify\rentify\controller\buyerController.class
+com\rentify\rentify\model\Seller.class
+com\rentify\rentify\RentifyApplication.class
+com\rentify\rentify\controller\sellerController.class
+com\rentify\rentify\service\SellerService.class
+com\rentify\rentify\controller\registerController.class
+com\rentify\rentify\dto\SellerDto.class
+com\rentify\rentify\service\BuyerService.class
